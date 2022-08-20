@@ -1,15 +1,8 @@
 import "./detail.css";
-import { useEffect, useState} from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import {Nav, Navbar} from 'react-bootstrap'
 import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom'
 import Star from "./Star/star"
-
-import Action from './Genrepage/genreAction';
-import Love from './Genrepage/genreLove';
-import Gag from './Genrepage/genreGag';
-import Fantasy from './Genrepage/genreFantasy';
-import Sport from './Genrepage/genreSport';
-import Thrill from './Genrepage/genreThrill';
 
 function Detail(){
     let {id} = useParams();
@@ -23,9 +16,14 @@ function Detail(){
           .then((info_data) => setInfo_data(info_data));
     }, []); 
 
+    // let comments = info_data.comments
+    // console.log(info_data.comments[0].name)
+    // console.log(info_data.comments[0].contents)
+    // console.log(info_data.comments[0].createTime)
+    // //console.log(comments[0].contents)
 
     //닉네임
-    let [userName] = useState('익명');
+    let [userName] = useState('세진티비');
     //댓글 목록 state
     let [comment, setComment]=useState([]);
     //Input 값 저장하는 state = 사용자가 입력하는 댓글
@@ -68,11 +66,8 @@ function Detail(){
     const minutes = ('0' + date.getMinutes()).slice(-2);
     const timeStr = hours + ':' + minutes;
 
-    let [inputStatus, setInputStatus ] = useState('')
-    const handleClickRadioButton = (radioBtnName) => {setInputStatus(radioBtnName)}
-
     let navigate = useNavigate()
-
+   
     return(
         <div className="Detail">
             {/*메인 로고 및 검색창*/}
@@ -87,26 +82,25 @@ function Detail(){
 
             {/*웹툰 정보 표시 박스*/}
             <div className="InfoBox">
-                <div className="infosection">
-                    <div id="imgBox">
-                        <div className="img-wp">
-                            <img id="Cardimg" src={info_data.image} />
+                <div>
+                    <div className="infosection">
+                        <div id="imgBox">
+                            <div className="img-wp">
+                                <img id="Cardimg" src={info_data.image} />
+                            </div>
+                        </div>
+                        <div className="infolist">
+                            <div><span id="listfont">제목 &nbsp;</span>{info_data.name}</div>
+                            <div><span id="listfont">작가 &nbsp;</span>{info_data.author}</div>
+                            <div><span id="listfont">장르 &nbsp;</span>{info_data.genre}</div>
+                            <div><span id="listfont">연재 &nbsp;</span>{info_data.platform}</div>
+                            <div><span id="listfont">작품소개 &nbsp;</span>{info_data.details}</div>
                         </div>
                     </div>
-                    <div className="infolist">
-                        <div><span id="listfont">제목 &nbsp;</span>{info_data.name}</div>
-                        <div><span id="listfont">작가 &nbsp;</span>{info_data.author}</div>
-                        <div><span id="listfont">장르 &nbsp;</span>{info_data.genre}</div>
-                        <div><span id="listfont">연재 &nbsp;</span>{info_data.platform}</div>
-                        <div><span id="listfont">작품소개 &nbsp;</span>{info_data.details}</div>
-                        <br />
+                    <div className="Star">
+                        <label>별점</label><Star />
+                        <label id="s1">별점주기</label> <Star />
                     </div>
-                </div>
-                <div className="Star">
-                    <label>별점</label>
-                    <Star />
-                    <label id="s1">별점주기</label>
-                    <Star />
                 </div>
             </div>
 
@@ -117,7 +111,7 @@ function Detail(){
 
                     {/* 댓글 입력 칸 */}
                     <input id='input_comment'
-                        placeholder='댓글을 입력하세요'
+                        placeholder='댓글을 입력하세요 ^ㅁ^*'
                         onChange={(e) => { changeValue(e.target.value); }}
                         onKeyUp={e => {
                             e.target.value.length > 0
@@ -135,22 +129,6 @@ function Detail(){
                         }}
                         disabled={isValid ? false : true}
                     >등록</button>
-
-                    {/* <div className="radio">
-                        <input
-                            type='radio'
-                            id='radio'
-                            checked={inputStatus === 'radio'}
-                            onClick={() => handleClickRadioButton('radio')} />
-                        <label htmlFor='radio'>BEST 댓글</label>
-
-                        <input
-                            type='radio'
-                            id='radio1'
-                            checked={inputStatus === 'radio1'}
-                            onClick={() => handleClickRadioButton('radio1')} />
-                        <label htmlFor='radio1'>최신순</label>
-                    </div> */}
 
                     {/* 댓글을 목록으로 나타대는 태그 */}
                     <div className="commentList">

@@ -70,7 +70,11 @@
   height: 260px;
   display: flex;
   justify-content: center;
-  margin : 0 auto;
+  /* margin : 0 auto; */
+}
+
+#box:hover{
+  transform: translateY(-6px);
 }
 
 .col-md-1{
