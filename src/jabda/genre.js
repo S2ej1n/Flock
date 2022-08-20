@@ -1,9 +1,9 @@
-import './genre.css';
+import '../genre.css';
 import {Nav, Navbar, Container, Col, Row} from 'react-bootstrap'
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react';
-import WebtInfo from './webt-info.js';
-import Pagination from './Pagination/pagination.js'
+import WebtInfo from '../webt-info.js';
+import Pagination from '../Pagination/pagination.js'
 
 function Genre() {
   let [WebInfo] = useState(WebtInfo)

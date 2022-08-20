@@ -1,7 +1,7 @@
 import './App.css';
 import {Nav, Navbar, Container } from 'react-bootstrap'
 import { Routes, Route } from 'react-router-dom'
-import Genre from './genre.js'
+import Genre from './jabda/genre.js'
 import Main from './main.js'
 import Genrecopy from './genrecopy2.js';
 import Login from './Login.js';
