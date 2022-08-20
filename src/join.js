@@ -12,24 +12,23 @@ export default function Join(){
 
     let navigate=useNavigate();
 
-    //내용 중복시 에러
-    // const handleSignup = async(e) => {
-    //     e.preventDefault();
-    //     try{
-    //         await authService.signup(Id, password).then(
-    //             (response)=>{
-    //                 //navigate("/");
-    //                 window.location.reload();
-    //             },
-    //             (error)=>{
-    //                 console.log(error);
-    //             }
-    //         );
-    //     } catch(err){
-    //         console.log(err);
-    //     }
-    // };
+    const signUpDB = () => {  //로그아웃 서버 연결
+        fetch('http://43.200.205.215:8080/auth/signup',{
 
+        method : "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      
+        body : JSON.stringify({
+            loginId: Id,
+            nickname: nickname,
+            passwd: password
+            }),
+        })
+        .then(response => response.json())
+        .then(navigate('/'))
+    };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -53,7 +52,8 @@ export default function Join(){
         <div className="Join">      
             <form>
                 <h1 className='Logo'>
-                    <img type="button" src='img/flock_logo.png' onClick={()=>{ navigate('/')}}/>
+                    <img type="button" src='img/flock_logo.png' 
+                    onClick={()=>{ navigate('/')}}/>
                 </h1>
                 <div className='section'>
                     <div>
@@ -67,7 +67,6 @@ export default function Join(){
                                 value={Id}
                                 onChange={(e)=>setId(e.target.value)}
                                 className='input_Join'/>
-
                                            
                         <button className='Join_btn'
                             type="button"
@@ -94,7 +93,7 @@ export default function Join(){
                                 className='input_Join'/>
                          <button 
                             type="button"
-                            classname='Join_btn' style={{
+                            className='Join_btn' style={{
                             backgroundColor: '#1F3E1B',
                             color: 'white',
                             fontSize: 15,
@@ -111,6 +110,7 @@ export default function Join(){
                                 type='password' 
                                 placeholder='비밀번호를 입력하세요'
                                 value={password}
+                                autoComplete="off"
                                 onChange={onChangePassword}
                                 className='input_Join1'/>
                     </div>
@@ -123,12 +123,13 @@ export default function Join(){
                                 value={passwordCheck} 
                                 onChange={onChangePasswordChk}
                                 placeholder='비밀번호를 입력하세요'
+                                autoComplete="off"
                                 className='input_Join1'/>
                                 {passwordError && <div style={{float: 'left', color:'red'}}>비밀번호가 일치하지 않습니다.</div>}
                     </div>
                     <div style={{paddingTop: 60}}>
                         <button className='Join_btn' 
-                        // onSubmit={handleSignup}
+                        onClick={signUpDB}
                         style={{
                             width: 320,
                             height: 45,
@@ -142,6 +143,4 @@ export default function Join(){
             </form>
         </div>
     )
-
-                    
 }

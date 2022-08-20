@@ -23,7 +23,7 @@ function Detail(){
     // //console.log(comments[0].contents)
 
     //닉네임
-    let [userName] = useState('세진티비');
+    let [userName] = useState('이름');
     //댓글 목록 state
     let [comment, setComment]=useState([]);
     //Input 값 저장하는 state = 사용자가 입력하는 댓글
